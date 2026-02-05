@@ -26,9 +26,7 @@ class Router
             return new Response('Page not found :(');
         } else {
             $callback = $matchedRoute->callback;
-            $response = $callback();
-
-            return $response;
+            return $callback();
         }
     }
 
