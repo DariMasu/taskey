@@ -2,7 +2,17 @@
 
 namespace App\Controllers;
 
+use Framework\Response;
+
 class HomeController
 {
+    public function index(): Response
+    {
+        return new Response('welcome to taskey');
+    }
 
+    public function about(): Response
+    {
+        return new Response('taskey is awesome');
+    }
 }
