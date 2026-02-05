@@ -4,18 +4,20 @@ namespace Framework;
 
 class Kernel
 {
+    private Router $router;
+
     public function __construct()
     {
+        $this->router = new Router();
     }
 
     public function handle(Request $request): Response
     {
-        if ($request->path == '/') {
-            $response = new Response(body: 'You accessed' . $request->path, responseCode: 200);
-        } else {
-            $response = new Response(body: 'Resource moved!', responseCode: 301);
-        }
+        return $this->router->dispatch($request);
+    }
 
-        return $response;
+    public function registerRoutes(RouteProviderInterface $routeProvider): void
+    {
+        $routeProvider->register($this->router);
     }
 }
