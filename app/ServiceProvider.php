@@ -2,9 +2,19 @@
 
 namespace App;
 
-use Framework\ServiceProvierInterface;
+use App\Controllers\HomeController;
+use App\Controllers\TaskController;
+use Framework\ServiceContainer;
+use Framework\ServiceProviderInterface;
 
-class ServiceProvider implements ServiceProvierInterface
+class ServiceProvider implements ServiceProviderInterface
 {
+    public function register(ServiceContainer $container): void
+    {
+        $homeController = new HomeController();
+        $container->set($homeController::class, $homeController);
 
+        $taskController = new TaskController();
+        $container->set($taskController::class, $taskController);
+    }
 }
