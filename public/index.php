@@ -5,12 +5,17 @@ require __DIR__ . "/../vendor/autoload.php";
 use Framework\Kernel;
 use Framework\Request;
 use App\RouteProvider;
+use App\ServiceProvider;
+
+$kernel = new Kernel();
+
+// registering services
+$serviceProvider = new ServiceProvider();
+$kernel->registerServices($serviceProvider);
 
 // registering routes
 $routeProvider = new RouteProvider();
-$kernel = new Kernel();
 $kernel->registerRoutes($routeProvider);
-
 
 // extract path from the uri
 $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
