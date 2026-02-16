@@ -8,10 +8,14 @@ class Kernel
 
     private ServiceContainer $container;
 
+    private ResponseFactory $responseFactory;
+
     public function __construct()
     {
-        $this->router = new Router();
         $this->container = new ServiceContainer();
+        $this->responseFactory = new ResponseFactory();
+        $this->container->set(ResponseFactory::class, $this->responseFactory);
+        $this->router = new Router($this->responseFactory);
     }
 
     public function handle(Request $request): Response
