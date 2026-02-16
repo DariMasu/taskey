@@ -7,8 +7,11 @@ class Router
     /** @var Route[] */
     public array $routes;
 
-    public function __construct()
+    public ResponseFactory $responseFactory;
+
+    public function __construct(ResponseFactory $responseFactory)
     {
+        $this->responseFactory = $responseFactory;
     }
 
     public function dispatch(Request $request): Response
@@ -23,7 +26,7 @@ class Router
         }
 
         if ($matchedRoute === null) {
-            return new Response('Page not found :(');
+            return $this->responseFactory->notFound();
         } else {
             $callback = $matchedRoute->callback;
             return $callback();
