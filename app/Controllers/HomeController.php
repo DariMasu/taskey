@@ -3,16 +3,22 @@
 namespace App\Controllers;
 
 use Framework\Response;
+use Framework\ResponseFactory;
 
 class HomeController
 {
+    private ResponseFactory $responseFactory;
+    public function __construct(ResponseFactory $responseFactory)
+    {
+        $this->responseFactory = $responseFactory;
+    }
     public function index(): Response
     {
-        return new Response('welcome to taskey');
+        return $this->responseFactory->body('welcome to taskey');
     }
 
     public function about(): Response
     {
-        return new Response('taskey is awesome');
+        return $this->responseFactory->body('about taskey');
     }
 }
