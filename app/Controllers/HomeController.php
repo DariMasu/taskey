@@ -14,11 +14,11 @@ class HomeController
     }
     public function index(): Response
     {
-        return $this->responseFactory->body('welcome to taskey');
+        return $this->responseFactory->view('home.twig', []);
     }
 
     public function about(): Response
     {
-        return $this->responseFactory->body('about taskey');
+        return $this->responseFactory->view('home.twig', []);
     }
 }
