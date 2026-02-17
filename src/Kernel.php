@@ -10,10 +10,21 @@ class Kernel
 
     private ResponseFactory $responseFactory;
 
-    public function __construct()
+    private ConfigManager $configManager;
+
+    /**
+     * @param array<string> $config
+     * */
+    public function __construct(array $config)
     {
         $this->container = new ServiceContainer();
-        $this->responseFactory = new ResponseFactory();
+        $this->configManager = new ConfigManager($config);
+
+        // if env is in production mode, debugging is false and vice versa
+        $debugMode = !$this->configManager->isProduction();
+        $viewsPath = $this->configManager->get('VIEWS_PATH');
+
+        $this->responseFactory = new ResponseFactory($debugMode, $viewsPath);
         $this->container->set(ResponseFactory::class, $this->responseFactory);
         $this->router = new Router($this->responseFactory);
     }
