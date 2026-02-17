@@ -7,7 +7,11 @@ use Framework\Request;
 use App\RouteProvider;
 use App\ServiceProvider;
 
-$kernel = new Kernel();
+// setting config
+$config = ['APP_ENV' => 'local', 'VIEWS_PATH' => 'C:\Users\User\OneDrive\Desktop\uni\FP1\taskey\app\views'];
+
+//instantiating kernel
+$kernel = new Kernel($config);
 
 // registering services
 $serviceProvider = new ServiceProvider();
