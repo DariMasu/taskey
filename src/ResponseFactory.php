@@ -2,10 +2,27 @@
 
 namespace Framework;
 
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
+
 class ResponseFactory
 {
-    public function body(string $body): Response
+    private Environment $twig;
+
+    public function __construct(bool $debugMode, string $viewsPath)
     {
+        $loader = new FilesystemLoader($viewsPath);
+        $this->twig = new Environment($loader, ['cache' => false, 'debug' => $debugMode]);
+    }
+
+    /**
+     * @param string $template
+     * @param array<string> $params
+     * @return Response
+     */
+    public function view(string $template, array $params): Response
+    {
+        $body = $this->twig->render($template, $params);
         return new Response($body);
     }
 
